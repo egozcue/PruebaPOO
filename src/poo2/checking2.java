@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package poo2;
-//holaalalala
-//lolololoo
+
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +29,8 @@ public class checking2 {
      *
      * @param resp
      */
+    
+    }
     public void menu(String resp){
         do{
             System.out.println("[O]pen C[L]ose [I]nq [D]ep [W]ithdraw [R]eturn");
@@ -67,7 +68,7 @@ public class checking2 {
     public void inquire(){
         System.out.println("-------------------");
         System.out.println("Checkimg Account Number: "+String.valueOf(number));
-        System.out.println("Current Balance: "+String.valueOf(balance)+" €");
+        System.out.println("Current Balance: "+String.valueOf(balance)+" â‚¬");
         System.out.println("-------------------");
     }
     public void withdraw(double cash){
@@ -80,7 +81,7 @@ public class checking2 {
     }
     public void deposit(double cash){
         balance=balance+cash
-        System.out.println("Balance: "+String.valueOf(balance)+" €");
+        System.out.println("Balance: "+String.valueOf(balance)+" â‚¬");
     }
         
     
