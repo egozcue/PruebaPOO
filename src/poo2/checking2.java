@@ -137,5 +137,3 @@ public class checking2 {
 
 }
         
-    
-
