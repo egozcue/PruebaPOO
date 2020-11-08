@@ -8,48 +8,67 @@ import java.util.Scanner;
 
 /**
  *
- * @author egozc
+ * @author 
  */
 public class client2 {
 
-    private final String address;
-    private static HashMap<String, checking2> chAcc;
-    private final String name;
+    
+    static HashMap <String, Object> map = new HashMap <String, Object> ();
+    private static String name;
+    private static String address;
     private int pin;
     private final int ssn;
-    private boolean status;
-    private final int phone;
+    private static boolean status;
+    private static int phone;
     Scanner SC = new Scanner(System.in);
-    public client2(int ssn) {
-        this.ssn=ssn;
-        System.out.println("Address:");
-        this.address = SC.nextLine();
-        System.out.println("Name:");
-        this.name =SC.nextLine();
-        this.status = true;
-        System.out.println("Telephone:");
-        this.phone = SC.nextInt();
+    
+    //Constructor
+    public client2(String name, String address, int ssn, int phone,boolean status) {
+        this.name = name;
+        this.address = address;
+        this.ssn = ssn;
+        this.phone = phone;
+        this.status=status;
+    }
+    
+  
+    public static boolean comprobarSsn(int ssn){
+        if (map.containsKey(String.valueOf(ssn))){
+            return false; //The issn is in the hashmap
+        }
+        else{
+            return true; //The ssn is not in the hashmap
+        }
+    }
+    public static void delete(int ssn){
+        map.remove(String.valueOf(ssn));
     }
 
-    public String getName(){
+    public static String getName(){
         return name;
     }
-    public i
-    public void delete(int ssn) {
-
+     public static boolean getStatus(){
+        return status;
     }
-
-    public void hasCheckAcc(int pin) {
-        
-        
+    public static String getAddress(){
+        return address;
     }
-
+     public static int getPhone(){
+        return phone;
+     }
+     
+    public static void display(){
+      map.forEach((k,v) -> System.out.println(  "Name: "+ (((client2)v).getName())+ ". Ssn: " + k +". Adress: "+(((client2)v).getAddress())+ ". Phone: " +(((client2)v).getPhone())));
+      map.forEach((k,v)->System.out.println("key"+ k + "Value"+ v));
+    }
+    
     public void show(int ssn) {
         System.out.println("Account of" +getName());
         System.out.println("---------------");
-        System.out.println("Checking account number"+);
+        System.out.println("Current balance: ");
     }
     public int getssn(){
-        
+        return ssn;
     }
 }
+
