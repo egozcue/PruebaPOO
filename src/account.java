@@ -10,16 +10,20 @@ import java.util.Scanner;
  *
  * @author egozc
  */
+//LA SUPPERCLASE ACCOUNT
 public abstract class account {
     static Scanner SC = new Scanner(System.in);
+    //Variables que comparten las subclases
     protected double balance;
     protected boolean status;
     protected int number;
+    //CONSTRUCTOR
     public account(){
         this.balance=0.0;
         this.status=false;
         this.number=0;
     }
+    //METODOS ABSTRACTOS QUE SON COMUNES EN LAS DOS SUBCLASES PERO DISTINTO COMPORTAMIENTO
     abstract void open();
     abstract void show();
     abstract void close();
@@ -38,12 +42,15 @@ public abstract class account {
         }
     }
 }
+//Subclase checking, cuenta corriente
 class checking extends account{
-    private static int nbrChecks;
+    private int nbrChecks;
+    //mandamos al constructor de la superclase con super()
     public checking(){
         super();
         nbrChecks=5;
     }
+    
     @Override
     public void open(){
         if (!this.status){
@@ -69,7 +76,28 @@ class checking extends account{
         System.out.println("The checking account has been closed with balance: "+String.valueOf(balance)+" €");
         balance=0.0;
     }
+    //metodos de los cheques
+    public void writeChk(){
+        if (nbrChecks>0){
+            System.out.println("Write Check:");
+            withdraw(SC.nextDouble());
+            this.nbrChecks-=1;
+            System.out.println("Number of checks:"+String.valueOf(nbrChecks));
+        }else{
+            System.out.println("No checks left please order new checks");
+        }
+    }
+    public void orderChecks(){
+        if (nbrChecks==5){
+            System.out.println("You already have the max number of checks");
+        }else{
+            nbrChecks=5;
+            System.out.println("You have now 5 checks");
+            
+        }
+    }
 }
+//subclase saving
 class savings extends account{
     public static double interestRate;
     private double matureBalance;
@@ -103,8 +131,8 @@ class savings extends account{
         balance=0.0;
         status=false;
     }
+    //ESTABLECER EL INTERES DE LA CUENTA DE AHORRO
     public static void setRate(double i){
         savings.interestRate=i;
     }
 }
-
