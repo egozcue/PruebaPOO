@@ -24,7 +24,7 @@ public class client2 {
     
     //Constructor
     public client2(String name, String address, int ssn, int phone,boolean status) {
-        this.name = name;
+        client2.name = name;
         this.address = address;
         this.ssn = ssn;
         this.phone = phone;
@@ -71,4 +71,3 @@ public class client2 {
         return ssn;
     }
 }
-
