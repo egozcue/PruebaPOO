@@ -12,55 +12,65 @@ import java.util.Scanner;
  */
 public class client2 {
 
-    
-    static HashMap <String, Object> map = new HashMap <String, Object> ();
-    private static String name;
-    private static String address;
+    private String name;
+    private String address;
     private int pin;
     private final int ssn;
-    private static boolean status;
-    private static int phone;
+    private boolean status;
+    private int phone;
     Scanner SC = new Scanner(System.in);
+    static HashMap <String, checking2> mapPin = new HashMap <String, checking2> ();
     
     //Constructor
     public client2(String name, String address, int ssn, int phone,boolean status) {
-        client2.name = name;
+        this.name = name;
         this.address = address;
         this.ssn = ssn;
         this.phone = phone;
         this.status=status;
     }
+    public void menuClient(){
+        String choose;
+        do{
+            System.out.println("[C]hecking S[E]t PIN S[H]ow Accounts [R]eturn:");
+            choose=SC.nextLine();
+            switch(choose){
+                case "C":
+                    System.out.println("Enter pin:");
+                    int pin=SC.nextInt();
+                    if(!comprobarPin(pin)){
+                        mapPin.get(String.valueOf(pin)).menuServ(ssn, mapPin);
+                    }else{
+                        System.out.println("The PIN doesn´t exist");
+                    }
+                    break;
+                case "E":
+                    System.out.println("Enter pin:");
+                    pin=SC.nextInt();
+                    if(comprobarPin(pin)){
+                        mapPin.put(String.valueOf(pin), new checking2());
+                    }
+                    break;
+                case "H":
+                    mapPin.forEach((k,v) -> System.out.println("Key: " + k + ": Value: " + v.getBalance()+ ": Number: "+v.getNumber()));     
+                    break;
+            }
+            
+        }while(!"R".equals(choose));
     
-  
-    public static boolean comprobarSsn(int ssn){
-        if (map.containsKey(String.valueOf(ssn))){
-            return false; //The issn is in the hashmap
-        }
-        else{
-            return true; //The ssn is not in the hashmap
-        }
     }
-    public static void delete(int ssn){
-        map.remove(String.valueOf(ssn));
-    }
+    
 
-    public static String getName(){
+    public String getName(){
         return name;
     }
-     public static boolean getStatus(){
-        return status;
-    }
-    public static String getAddress(){
+
+    public String getAddress(){
         return address;
     }
-     public static int getPhone(){
+     public int getPhone(){
         return phone;
      }
-     
-    public static void display(){
-      map.forEach((k,v) -> System.out.println(  "Name: "+ (((client2)v).getName())+ ". Ssn: " + k +". Adress: "+(((client2)v).getAddress())+ ". Phone: " +(((client2)v).getPhone())));
-      map.forEach((k,v)->System.out.println("key"+ k + "Value"+ v));
-    }
     
     public void show(int ssn) {
         System.out.println("Account of" +getName());
@@ -69,5 +79,8 @@ public class client2 {
     }
     public int getssn(){
         return ssn;
+    }
+    public static boolean comprobarPin(int pin){
+        return !mapPin.containsKey(String.valueOf(pin)); 
     }
 }
