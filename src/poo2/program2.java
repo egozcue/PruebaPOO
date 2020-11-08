@@ -8,21 +8,28 @@ package poo2;
 import java.util.List;
 import java.util.Scanner;
 
-import static javax.swing.text.html.HTML.Tag.S;
+import static poo2.checking2.menuServ;
+import static poo2.client2.comprobarSsn;
+import static poo2.client2.map;
+import static poo2.client2.delete;
+import static poo2.client2.display;
+import static poo2.client2.getName;
+
+
 /**
  *
- * @author egozc
+ * @author 
  */
 public class program2 {
-    private static List<client2>clients;
-    private static int index;
+   
     
     public static void menu(){
-        System.out.println("[C]reate Customer [D]elete Customer Dis[p]lay [S]ervices [Q]uit");
+        System.out.println("[C]reate Customer [D]elete Customer Dis[P]lay [S]ervices [Q]uit");
     }
     
     public static void election(){
         String choose;
+        String nameC;
         do{
         menu();
         Scanner sc=new Scanner(System.in);
@@ -30,50 +37,74 @@ public class program2 {
         choose=sc.nextLine();
         switch(choose){
             case "C":
-                do{
+                    System.out.println("Social security number: ");
                     int ssn = sc.nextInt();
-                    confirmSsn(clients,ssn);
-                }
-                while(confirmSsn(clients,ssn)<)
+                    while (!(comprobarSsn(ssn))){
+                        System.out.println("Sorry, this ssn is already in our data base");
+                        System.out.println("Use another ssn: ");
+                        ssn = sc.nextInt();
+                    }
+                    
+                    System.out.println("Name: ");
+                    nameC = sc.next();
+                    System.out.println("Phone: ");
+                    int phone=sc.nextInt();
+                    System.out.println("Adress: ");
+                    String address= sc.next();
+                    client2 client=new client2(nameC,address,ssn,phone,false);
+                    
+                    System.out.println("The customer " + nameC+" had been created");
+                    map.put(String.valueOf(ssn),client);
+                 
+                    break;
 
-                new client2(ssn);
-                
-                break;
+
+                    
+                    
             case "D":
-                delete();
+                
+                System.out.println("Your ssn: ");
+                ssn=sc.nextInt();
+               
+                if (!(comprobarSsn(ssn))){
+                    client2 data=(client2) map.get(String.valueOf(ssn));
+                    nameC= data.getName();
+                    delete(ssn); 
+                    System.out.println("The client with ssn "+ssn+"and name "+ nameC+" had been deleted");
+                    
+                }
+                else{
+                    System.out.println("There´s no client with that ssn in our database");
+                }
                 break;
-            case "p":
+            case "P":
                 display();
                 break;
-            case "s":
-                services();
-                index=confirmarSsn(clients,ssn);
-                }while (index>0);
-                break;
-            case "q":
+            case "S":
+                System.out.println("Your ssn: ");
+                ssn=sc.nextInt();
+                if (comprobarSsn(ssn)){
+                    menuServ();
+                }
+                else{
+                    System.out.println("There´s no client with that ssn in our database");
+                }
+               
+                break;  
+            case "Q":
                 break;
         }
         }
     
-        while (!("q".equals(choose)));
-                    
-        
-                
-                
-        }
-    public static int confirmSsn(List<client2> lista,int ssn){
-        int x=-1;
-        for (int i=0; i<lista.size(); i++){
-            if(lista.get(i).getssn()==ssn){
-                x=i;
-            }
-        }
-        return x;
+        while (!("Q".equals(choose)));
     }
-        
+
+    public static void bye(){
+        System.out.println("Thanks for using our banking system!");
+    }
     
     public static void main(String[] args) {
         election();
+        bye();
     }
-   
 }
