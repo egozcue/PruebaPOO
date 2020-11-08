@@ -5,22 +5,21 @@
  */
 package poo2;
 
+import java.util.HashMap;
 import java.util.Scanner;
-
-import static poo2.checking2.menuServ;
+/**import static poo2.checking2.menuServ;
 import static poo2.client2.comprobarSsn;
 import static poo2.client2.map;
 import static poo2.client2.delete;
 import static poo2.client2.display;
 import static poo2.client2.getName;
-
-
+*/
 /**
  *
  * @author 
  */
 public class program2 {
-   
+    static HashMap <String, client2> map = new HashMap <String, client2> ();
     
     public static void menu(){
         System.out.println("[C]reate Customer [D]elete Customer Dis[P]lay [S]ervices [Q]uit");
@@ -55,11 +54,7 @@ public class program2 {
                     System.out.println("The customer " + nameC+" had been created");
                     map.put(String.valueOf(ssn),client);
                  
-                    break;
-
-
-                    
-                    
+                    break;       
             case "D":
                 
                 System.out.println("Your ssn: ");
@@ -80,8 +75,10 @@ public class program2 {
             case "S":
                 System.out.println("Your ssn: ");
                 ssn=sc.nextInt();
-                if (comprobarSsn(ssn)){
-                    menuServ();
+                if (!comprobarSsn(ssn)){
+                    client2 cliente = map.get(String.valueOf(ssn));
+                    cliente.menuClient();
+                    
                 }
                 else{
                     System.out.println("There´s no client with that ssn in our database");
@@ -103,5 +100,16 @@ public class program2 {
     public static void main(String[] args) {
         election();
         bye();
+    }
+    public static boolean comprobarSsn(int ssn){
+        return !map.containsKey(String.valueOf(ssn)); //The issn is in the hashmap
+        //The ssn is not in the hashmap
+    }
+    public static void delete(int ssn){
+        map.remove(String.valueOf(ssn));
+    }
+    public static void display(){
+      map.forEach((k,v) -> System.
+              out.println(  "Name: "+ (((client2)v).getName())+ ". Ssn: " + k +". Adress: "+(((client2)v).getAddress())+ ". Phone: " +(((client2)v).getPhone())));
     }
 }
