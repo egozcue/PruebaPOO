@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ Este programa simula una interfaz bancaria juntamos la herencia de la clase abstracta de account
+ que esta instanciada por la clase customer y creamos menus en la clase program.
  */
 package poo3;
 
@@ -21,7 +20,7 @@ public class program {
     
     public static void main(String[] args) {
         do{
-            System.out.println("[C]reate Customer   [D]elete Customer  Dis[p]lay  [S]ervices  [Q]uit:");
+            System.out.println("[C]reate Customer   [D]elete Customer  Dis[p]lay  [S]ervices  S[E]t Rate  [Q]uit:");
             resp=SC.nextLine();
             switch(resp){
                 case "C":
@@ -54,6 +53,9 @@ public class program {
                     }else{
                         customerMenu(ssn,clients.get(index));
                     }
+                    break;
+                case "E":
+                    setInterest();
             }
             
         }while(!"Q".equals(resp));
@@ -83,7 +85,7 @@ public class program {
             checking cuenta;
             String r;
             do{
-                System.out.println("[0]pen C[L]ose [I]nq [D]ep [W]ithdraw OrderC[H]k [R]eturn");
+                System.out.println("[0]pen C[L]ose [I]nq [D]ep [W]ithdraw Writech[K] OrderC[H]k [R]eturn");
                 r=SC.nextLine();
                 cuenta=client.getChAcc();
                 switch(r){
@@ -105,8 +107,11 @@ public class program {
                         cuenta.withdraw(SC.nextDouble());
                         break;
                     case "H":
+                        cuenta.orderChecks();
                         break;
-                        
+                    case "K":
+                        cuenta.writeChk();
+                        break;
                 }
             }while(!"R".equals(r));
         }else{
@@ -159,15 +164,24 @@ public class program {
                         break;
                     case "H":
                         client.show();
+                        break;
                     case "T":
                         System.out.println("Enter PIN:");
                         transferMenu(SC.nextInt(),client);
+                        break;
                 }
             }while(!"R".equals(r));
         }else{
             System.out.println("Incorrect Social Security Number");
         }      
     }
+
+    /**
+     *
+     * @param ssn para buscar al cliente
+     * @param lista en esta
+     * @return el index donde se localiza el cliente
+     */
     public static int confirmarSsn(int ssn, List<customer> lista){
         int x = -1;
         for (int i = 0; i < lista.size(); i++) {
@@ -177,6 +191,10 @@ public class program {
         }
         return x;
     }
+
+    /**
+     *Estable el interes de la variable estática InterestRate.
+     */
     public static void setInterest(){
         System.out.println("Introduce the interest rate:");
         savings.setRate(SC.nextDouble());
