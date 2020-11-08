@@ -5,7 +5,6 @@
  */
 package poo2;
 
-import java.util.List;
 import java.util.Scanner;
 
 import static poo2.checking2.menuServ;
@@ -67,10 +66,8 @@ public class program2 {
                 ssn=sc.nextInt();
                
                 if (!(comprobarSsn(ssn))){
-                    client2 data=(client2) map.get(String.valueOf(ssn));
-                    nameC= data.getName();
                     delete(ssn); 
-                    System.out.println("The client with ssn "+ssn+"and name "+ nameC+" had been deleted");
+                    System.out.println("The client with ssn "+ssn+ " had been deleted");
                     
                 }
                 else{
